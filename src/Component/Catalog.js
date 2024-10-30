@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Catalog.css';
+import { ToastContainer, toast } from 'react-toastify';
 import { images } from './images/Imagesholder';
 
 const dataSources = [
@@ -52,6 +53,10 @@ const Catalog = () => {
     const [tempFilterTerms, setTempFilterTerms] = useState('');
     const [tempFilterProvider, setTempFilterDataProvider] = useState([]); 
     const [tempFilterPersonalData, setTempFilterPersonalData] = useState([]);
+    const [projectName, setProjectName] = useState('');
+    const [projectDescription, setProjectDescription] = useState('');
+    const [errors, setErrors] = useState({});
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -121,6 +126,17 @@ const Catalog = () => {
 
     const handleClick = (linkName) => {
         setActiveLink(linkName); 
+        if (linkName === 'selected') {
+            const filterElement = document.getElementsByClassName('Filters');
+            if (filterElement.length > 0) {
+                filterElement[0].style.display = 'none'; // Access the first element
+            }
+        } else {
+            const filterElement = document.getElementsByClassName('Filters');
+            if (filterElement.length > 0) {
+                filterElement[0].style.display = 'block'; // Show the filter if another link is selected
+            }
+        }
     };
 
     const [isOpen, setIsOpen] = useState(false);
@@ -148,6 +164,12 @@ const Catalog = () => {
         };
     }, [isOpen]);
     const applyFilters = () => {
+        setFilterName('');
+        setFilterModality('');
+        setFilterTerms('');
+        setFilterDataProvider([]);
+        setFilterPersonalData([]);
+    
         setFilterName(tempFilterName);
         setFilterModality(tempFilterModality);
         setFilterTerms(tempFilterTerms);
@@ -161,6 +183,32 @@ const Catalog = () => {
         setTempFilterTerms('');
         setTempFilterDataProvider([]);
         setTempFilterPersonalData([]);
+    };
+   
+    const handleSave = () => {
+        let newErrors = {};
+
+        if (!projectName) {
+            newErrors.projectName = 'This field is required';
+        }
+        if (!projectDescription) {
+            newErrors.projectDescription = 'This field is required';
+        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length === 0) {
+            toast.success('Project saved successfully!', {
+                position: 'top-right',
+                autoClose: 3000, 
+            });
+            console.log('Project saved:', projectName, projectDescription);
+            handleCloseModal();
+            setProjectName('');
+            setProjectDescription('');
+
+        
+        }
     };
     return (
         <div className="container-fluid body_color_right">
@@ -300,19 +348,27 @@ const Catalog = () => {
                 <div className="d-flex justify-content-between align-items-center nav_height">
                     <div className='main_content'>
                         <ul className='d-flex align-items-center unorder_list'>
-                            <li className='main_content_list'>
-                                <a href='#'
-                                   onClick={() => handleClick('data-source')}
-                                   className={activeLink === 'data-source' ? 'active-link' : ''}
-                                >Data Source</a></li>
-                            <li className='main_content_list Selected_link_text'>
-                                <a onClick={() => handleClick('selected')}
-                                   className={activeLink === 'selected' ? 'active-link' : ''} 
-                                   href='#'>Selected</a></li>
-                        </ul>
+    <li className='main_content_list'>
+        <a href='#'
+           onClick={() => handleClick('data-source')}
+           className={activeLink === 'data-source' ? 'active-link' : ''}>
+           Data Source
+        </a>
+    </li>
+    <li className='main_content_list Selected_link_text'>
+        <a onClick={() => handleClick('selected')}
+           className={activeLink === 'selected' ? 'active-link' : ''} 
+           href='#'>
+           Selected
+        </a>
+    </li>
+</ul>
+
                     </div>
-                    <button className="Filters" onClick={toggleSidebar}>Filters</button>
-                </div>
+                    {activeLink === 'selected' ? null : (
+                          <button className="Filters" onClick={toggleSidebar}>Filters</button>
+
+    )}                </div>
 
                 <div className="container-fluid">
                     <div className='row'>
@@ -376,11 +432,16 @@ const Catalog = () => {
             <div className='d-flex justify-content-between page page'>
                                     <div className='d-flex align-items-center pages' >
                                     <label htmlFor="rowsPerPage" className='rowsPerPage'>Results per page</label>
-                <select id="rowsPerPage" value={rowsPerPage} onChange={handleRowsPerPageChange}>
+                                    <div>
+                                    <select id="rowsPerPage" value={rowsPerPage} onChange={handleRowsPerPageChange}
+          
+          className="custom-select">
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                     <option value={30}>30</option>
                 </select>
+                                    </div>
+
                                     </div>
                
                 <div className='d-flex align-items-center'>                <span> Page {currentPage} of {totalPages} </span>
@@ -427,12 +488,13 @@ const Catalog = () => {
                                
                              {isModalOpen && (
                 <div className="modal-overlay">
+                   
                     <div className="modal-content">
                        <div className='main_box_catalog'>
                        <div className='Catalog_pop_box'>
                        <div className='d-flex justify-content-between'>
                         <div>
-
+                        <ToastContainer />
                         </div>
                         <div className='d-flex align-items-center Save_as_project'>
                         <h5 className='m-0'>Save as a Project</h5>
@@ -443,22 +505,42 @@ const Catalog = () => {
                         </div>
                         <div className='input_text_container'>
                       
-                       <div class="input-wrapper">
-  <label for="first" className='label-inputtext'>Project Name</label>
-  <input type="text" className='input-text' placeholder='Badal.Ai' required/>
-                       </div>
-<div class="input-wrapper">
-  
-  <label for="first" className='label-inputtext'>Project discription</label>
-  <input type="text" className='input-text ' placeholder='badal.Ai' required/>
-</div>    
-       
+                         <div className="input-wrapper">
+                                <label htmlFor="projectName" className="label-inputtext">Project Name</label>
+                                <input
+                                    type="text"
+                                    className={`input-text ${errors.projectName ? 'input-error' : ''}`}
+                                    placeholder="Badal.Ai"
+                                    value={projectName}
+                                    onChange={(e) => setProjectName(e.target.value)}
+                                    required
+                                />
+                                   <div className='error-field-required'> {errors.projectName && (
+                                    <span className="error-message">{errors.projectName}</span>
+                                )} </div>
+                            </div>
+                        
+                            <div className="input-wrapper">
+                                <label htmlFor="projectDescription" className="label-inputtext">Project Description</label>
+                                <input
+                                    type="text"
+                                    className={`input-text ${errors.projectDescription ? 'input-error' : ''}`}
+                                    placeholder="badal.Ai"
+                                    value={projectDescription}
+                                    onChange={(e) => setProjectDescription(e.target.value)}
+                                    required
+                                />
+                                 <div className='error-field-required'> {errors.projectDescription && (
+                                    <span className="error-message">{errors.projectDescription}</span>
+                                )}</div>
+                            </div>
+      
                         </div>
                        </div>
                        <div className="botton_comb d-flex justify-content-end">
                                 <div className='d-flex button_bar'>
-                                    <div><button className=" Filters" >Cancel</button></div>
-                                    <div><button className=" Filters filter_apply_btn">Save</button></div>
+                                    <div><button className=" Filters" onClick={handleCloseModal}>Cancel</button></div>
+                                    <div><button className=" Filters filter_apply_btn " onClick={handleSave}>Save</button></div>
                                 </div>
                             </div>
                        </div>

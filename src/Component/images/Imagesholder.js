@@ -15,6 +15,7 @@ import Dashboardb from './Dashboard_b.png';
 import Graphb  from './Graph-2_b.png';
 import Delete from './state-layer.png';
 import Cross1 from './Cross1.png';
+import Right from './Right_Arrow.png'
 export const images = {
     Fastcatallogo,
     Setting,
@@ -32,5 +33,6 @@ export const images = {
     Dashboardb,
     Graphb,
     Delete,
-    Cross1
+    Cross1,
+    Right
   };
