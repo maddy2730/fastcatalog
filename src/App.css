@@ -22,6 +22,8 @@ button.btn-link {
 .main_container_box{
 display: flex;
 gap: 24px;
+background-color: #F9F9F9;
+height: auto;
 }
 input[type="text"],
 select {

@@ -3,7 +3,7 @@ width: 310px;
 height: 100%;
 padding: 42px 16px 14px 17px;
 gap: 24px;
-/* background-color: #FFFFFF; */
+background-color: #FFFFFF;
 height: 100vh;
 position: fixed;
 transition: transform 0.3s ease; 
