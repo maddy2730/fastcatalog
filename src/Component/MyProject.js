@@ -2,7 +2,7 @@ import React from 'react'
 import './MainContent.css'
 export default function MyProject() {
   return (
-    <div>
+    <div className='Selected_tables'>
       <div className='my-project-main-container'>
       <div className=' '>
       <div className='myproject-content d-flex justify-content-between'>
@@ -13,8 +13,8 @@ export default function MyProject() {
             </div>
        
       </div>
-      <div className='overflows'>
-      <table className="table table-bordered table-hover">
+      <div className='overflows '>
+      <table className="table table-bordered table-hover ">
     <thead className="table_color">
         <tr className='table_row table_row_selected'>
         

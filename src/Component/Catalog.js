@@ -129,12 +129,12 @@ const Catalog = () => {
         if (linkName === 'selected') {
             const filterElement = document.getElementsByClassName('Filters');
             if (filterElement.length > 0) {
-                filterElement[0].style.display = 'none'; // Access the first element
+                filterElement[0].style.display = 'none'; 
             }
         } else {
             const filterElement = document.getElementsByClassName('Filters');
             if (filterElement.length > 0) {
-                filterElement[0].style.display = 'block'; // Show the filter if another link is selected
+                filterElement[0].style.display = 'block'; 
             }
         }
     };
@@ -456,7 +456,7 @@ const Catalog = () => {
                             ) : (
                                 <>
                                  <div className='overflows'>
-                              <table className="table table-bordered table-hover">
+                              <table className="table table-bordered table-hover Selected_table">
                                     <thead className="table_color">
                                         <tr className='table_row table_row_selected'>
                                         

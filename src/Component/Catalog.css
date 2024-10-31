@@ -620,5 +620,7 @@ color: red;
     height: 36px;
     padding: 8px 12px;
 }
-
+.Selected_table{
+    height: 65vh;
+}
 

@@ -138,6 +138,7 @@ tbody td {
 .aside-bar{
   position: static;
   padding-right: 0px;
+  padding-left: 0px;
 }
 .pagination {
   display: flex;
@@ -280,4 +281,5 @@ select {
 }
 .slidebar-container-main{
   background-color:  #FFFFFF ;
+  height: auto;
 }
