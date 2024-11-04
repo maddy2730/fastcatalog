@@ -92,10 +92,16 @@
         .form-control{
             width: 100% !important;
         }
+        .Right_arrows_main_box span{
+            font-size: x-small;
+        }
 
     }
-  
-    
+    @media (min-width: 768px) and (max-width: 990px) {
+        .filter_section {
+            height: min-content;
+        }
+    }
     
     .sidebar.open {
         right: 0;
