@@ -41,7 +41,7 @@ const Sidebar = () => {
                             <div className='nav-icon'>
                                 <img src={activeLink === '/Myproject' ? images.Dashboardb : images.Dashboard} alt="Dashboard" />
                             </div>
-                            <div>My Project </div>
+                            <div>My Projects </div>
                             <div>{activeLink === '/Myproject' && <img className='dots' src={images.Elipsdot} alt="dot" />}</div>
                         </li>
                     </NavLink>

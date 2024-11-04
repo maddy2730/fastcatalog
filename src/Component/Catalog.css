@@ -85,6 +85,15 @@
             height: 749px; ;
         }
     }
+    @media(max-width: 480px){
+        .sidebar{
+            width: 100vw;
+        }
+        .form-control{
+            width: 100% !important;
+        }
+
+    }
   
     
     
@@ -151,7 +160,7 @@
         gap: 45px;
     }
     .button_bar{
-        gap: 20px;
+        gap: 25px;
     }
     
     .form-check-box{
@@ -202,8 +211,8 @@
         width: 389px;
     }
         .close-btn img{
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
         }
         .table2{
             display: none;
@@ -370,7 +379,7 @@ white-space: nowrap;
             font-size: 13px;
         }
         .button_bar {
-            gap: 10px;
+            gap: 25px;
         }
         .Bill_Material {
             width: 198px;
@@ -385,6 +394,30 @@ white-space: nowrap;
 
 .botton_comb{
     margin-bottom: 7px;
+}
+.right_arrow1{
+    height: 20px;
+    width: 20px;
+   
+}
+.right_arrows{
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #E7E7E7;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+
+}
+.Right_arrows_main_box{
+    gap: 16px;
+}
+.right_arrow2{
+    height: 20px;
+    width: 20px;
+
 }
 @media (max-width: 990px) {
     .main_content_list {
@@ -479,7 +512,7 @@ padding: 0px;
     }
     
     .slider_content_box {
-        gap: 20px;
+        gap: 25px;
     }
 }
 
@@ -494,7 +527,7 @@ padding: 0px;
     }
 
     .slider_content_box {
-        gap: 16px;
+        gap: 25px;
     }
 
     .cross_icon {
@@ -502,7 +535,7 @@ padding: 0px;
     }
 
     .button_bar {
-        gap: 10px;
+        gap: 25px;
     }
 
     .Filters {
@@ -538,7 +571,7 @@ padding: 0px;
     }
 
     .slider_content_box {
-        gap: 12px;
+        gap: 25px;
     }
 
     .cross_icon {

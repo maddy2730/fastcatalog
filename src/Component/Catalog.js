@@ -210,6 +210,17 @@ const Catalog = () => {
         
         }
     };
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
     return (
         <div className="container-fluid body_color_right">
             <div className="sidebar-container">
@@ -291,7 +302,7 @@ const Catalog = () => {
                                                 checked={tempFilterProvider.includes("Geated")}
                                                 onChange={() => handleDataAvailabilityChange("Geated")}
                                             />
-                                            <label className="form-check-label" htmlFor="dataGeated">Geated</label>
+                                            <label className="form-check-label" htmlFor="dataGeated">Gated</label>
                                         </div>
                                     </div>
                                 </div>
@@ -334,7 +345,7 @@ const Catalog = () => {
                             </div>
                             <div className="botton_comb d-flex justify-content-end">
                                 <div className='d-flex button_bar'>
-                                    <div><button className=" Filters" onClick={cancelFilters}>Cancel</button></div>
+                                    <div><button className=" Filters" onClick={toggleSidebar}>Cancel</button></div>
                                     <div><button className=" Filters filter_apply_btn" onClick={applyFilters}>Apply</button></div>
                                 </div>
                             </div>
@@ -444,7 +455,14 @@ const Catalog = () => {
 
                                     </div>
                
-                <div className='d-flex align-items-center'>                <span> Page {currentPage} of {totalPages} </span>
+                                    <div className='d-flex align-items-center Right_arrows_main_box'>
+                                    {currentPage > 1 && (
+
+                    <button className='right_arrows' onClick={handlePreviousPage} disabled={currentPage === 1}><img className='right_arrow1' src={images.Right1}></img></button>
+                )}
+                
+                    <span> Page {currentPage} of {totalPages} </span>
+                    <button className='right_arrows' onClick={handleNextPage} disabled={currentPage === totalPages}><img className='right_arrow2' src={images.Right2}></img></button>
                 </div>
             </div>
                                 </>

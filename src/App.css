@@ -242,7 +242,7 @@ select {
   font-size: 14px !important;
   height: 44px;
   font-weight: 400;
-  width: 394px !important;
+  /* width: 394px !important; */
   border: 1px solid #9E9E9E !important;
 }
 .form-select{
@@ -264,13 +264,13 @@ select {
 @media (max-width: 480px) {
   .form-select {
 
-      width: 264px !important;
+      width: 100% !important;
   
   }
-  .form-control {
+  /* .form-control {
 
     width: 268px !important;
-   }
+   } */
 }
 .clas{
   display: flex;

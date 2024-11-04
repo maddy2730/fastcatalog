@@ -1,5 +1,6 @@
 import React from 'react'
 import './MainContent.css'
+import { NavLink, useLocation } from 'react-router-dom';
 export default function MyProject() {
   return (
     <div className='Selected_tables'>
@@ -9,7 +10,8 @@ export default function MyProject() {
       <div className='myproject-heading'>
          
          <h2>My Project</h2></div>
-       <div> <button className='new_project'>Create New Project</button></div>
+       <div> 
+       <NavLink to='/'><button className='new_project'>Create New Project</button></NavLink></div>
             </div>
        
       </div>
