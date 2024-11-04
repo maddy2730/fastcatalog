@@ -378,7 +378,7 @@ white-space: nowrap;
             font-size: 13px;
         }
         .main_content_list{
-            padding: 0px 16px 0px 0px ;
+            padding: 0px 32px 0px 0px ;
         }
 
   }
@@ -386,7 +386,12 @@ white-space: nowrap;
 .botton_comb{
     margin-bottom: 7px;
 }
-
+@media (max-width: 990px) {
+    .main_content_list {
+        justify-content: start;
+        padding: 0px;
+    }
+}
   @media (max-width: 768px) {
     .modal-content {
         width: 90% !important;
