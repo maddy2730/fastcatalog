@@ -3,7 +3,7 @@ import './MainContent.css'
 import { NavLink, useLocation } from 'react-router-dom';
 export default function MyProject() {
   return (
-    <div className='Selected_tables'>
+    <div className='Selected_tables container-fluid'>
       <div className='my-project-main-container'>
       <div className=' '>
       <div className='myproject-content d-flex justify-content-between'>

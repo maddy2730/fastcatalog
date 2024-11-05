@@ -137,8 +137,7 @@ tbody td {
 }
 .aside-bar{
   position: static;
-  padding-right: 0px;
-  padding-left: 0px;
+  /* padding-left: 0px !important; */
 }
 .pagination {
   display: flex;
@@ -280,6 +279,16 @@ select {
 
 }
 .slidebar-container-main{
-  background-color:  #FFFFFF ;
+  /* background-color:  #FFFFFF ; */
   height: auto;
+}
+@media (min-width: 1660px) { /* Large screen breakpoint */
+  .col-lg-3 {
+    width: 17% !important; /* Ensure it doesn’t expand beyond 22% */
+  }
+}
+@media (max-width: 1660px) {
+  .col-lg-3 {
+      flex: 0 0 auto;
+      width: 293px !important;  }
 }
