@@ -99,7 +99,13 @@
         .Right_arrows_main_box span{
             font-size: x-small;
         }
-
+        .rowsPerPage{
+            font-size: small;
+        }
+        .pagination-page{
+            font-size: x-small;
+    white-space: nowrap;
+        }
     }
     @media (min-width: 768px) and (max-width: 990px) {
         .filter_section {

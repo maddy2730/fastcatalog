@@ -530,7 +530,7 @@ const handleDataAvailabilityChange = (value) => {
       </span>
     )}
     
-    <span className="mx-3">
+    <span className="mx-3 pagination-page">
       Page {currentPage} of {Math.ceil(totalCount / rowsPerPage)}
     </span>
 
