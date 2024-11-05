@@ -21,7 +21,7 @@ const Catalog = () => {
   const [tempFilterName, setTempFilterName] = useState('');
   const [tempFilterModality, setTempFilterModality] = useState('');
   const [tempFilterTerms, setTempFilterTerms] = useState('');
-  const [tempFilterProvider, setTempFilterDataProvider] = useState([]);
+//   const [tempFilterProvider, setTempFilterDataProvider] = useState([]);
   const [tempFilterPersonalData, setTempFilterPersonalData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -32,18 +32,19 @@ const Catalog = () => {
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [errors, setErrors] = useState({});
+  const [tempFilterProvider, setTempFilterProvider] = useState([]);
+
   const filteredData = response?.filter((data) => {
     return (
       data.name.toLowerCase().includes(filterName.toLowerCase()) &&
       (!filterModality || data.modality === filterModality) &&
       (!filterTerms || data.usage_terms_type === filterTerms) &&
-      (filterProvider.length === 0 ||
-        filterProvider.includes(data.data_provider)) &&
-      (filterPersonalData.length === 0 ||
-        filterPersonalData.includes(data.personal_data_type))
+      
+      (filterProvider.length === 0 || filterProvider.includes(data.data_availability)) &&
+      (filterPersonalData.length === 0 || filterPersonalData.includes(data.personal_data_type))
     );
   });
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -98,18 +99,27 @@ const Catalog = () => {
       return updatedItems;
     });
   };
-  const handleDataAvailabilityChange = (value) => {
-    setTempFilterDataProvider((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    );
-  };
+//   const handleDataAvailabilityChange = (value) => {
+//     setTempFilterDataProvider((prev) =>
+//       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+//     );
+//   };
 
   const handlePersonalDataChange = (value) => {
     setTempFilterPersonalData((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
   };
-
+//   const handleDataAvailabilityChange = (value) => {
+//     setTempFilterProvider((prev) =>
+//       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+//     );
+//   };
+const handleDataAvailabilityChange = (value) => {
+    setTempFilterProvider((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
   const handleCheckboxChange = (id) => {
     setSelectedItems((prev) => {
       const newSelectedItems = prev.includes(id)
@@ -159,13 +169,13 @@ const Catalog = () => {
     toggleSidebar();
   };
 
-  const cancelFilters = () => {
-    setTempFilterName('');
-    setTempFilterModality('');
-    setTempFilterTerms('');
-    setTempFilterDataProvider([]);
-    setTempFilterPersonalData([]);
-  };
+//   const cancelFilters = () => {
+//     setTempFilterName('');
+//     setTempFilterModality('');
+//     setTempFilterTerms('');
+//     setTempFilterDataProvider([]);
+//     setTempFilterPersonalData([]);
+//   };
   const handleSave = () => {
     let newErrors = {};
 
@@ -188,7 +198,7 @@ const Catalog = () => {
         setProjectName('');
         setProjectDescription('');
 
-        navigate('/Myproject');
+        navigate('/');
     }
 };
   return (
@@ -223,8 +233,7 @@ const Catalog = () => {
                         className="form-control"
                         placeholder="Enter data source name"
                         value={tempFilterName}
-                        onChange={(e) => setTempFilterName(e.target.value)}
-                      />
+                        onChange={(e) => setTempFilterName(e.target.value)}                       />
                     </div>
 
                     <div className="Source">
@@ -235,11 +244,11 @@ const Catalog = () => {
                         onChange={(e) => setTempFilterModality(e.target.value)}
                       >
                         <option value="">Select Modality</option>
-                        <option value="Text">Text</option>
-                        <option value="Images">Images</option>
-                        <option value="Video">Video</option>
-                        <option value="Tabular">Tabular</option>
-                        <option value="Audio">Audio</option>
+                        <option value="text">text</option>
+                        <option value="images">image</option>
+                        <option value="video">video</option>
+                        <option value="tabular">tabular</option>
+                        <option value="audio">audio</option>
                       </select>
                     </div>
 
@@ -270,16 +279,17 @@ const Catalog = () => {
                             className="form-check-input"
                             type="checkbox"
                             id="dataPublic"
-                            checked={tempFilterProvider.includes('Public')}
+                            checked={tempFilterProvider.includes('public')}
                             onChange={() =>
-                              handleDataAvailabilityChange('Public')
+                              handleDataAvailabilityChange('public')
                             }
+                            
                           />
                           <label
                             className="form-check-label"
                             htmlFor="dataPublic"
                           >
-                            Public
+                            public
                           </label>
                         </div>
                         <div className="form-check">
@@ -287,9 +297,9 @@ const Catalog = () => {
                             className="form-check-input"
                             type="checkbox"
                             id="dataGeated"
-                            checked={tempFilterProvider.includes('Geated')}
+                            checked={tempFilterProvider.includes('gated')}
                             onChange={() =>
-                              handleDataAvailabilityChange('Geated')
+                              handleDataAvailabilityChange('gated')
                             }
                           />
                           <label
@@ -313,15 +323,15 @@ const Catalog = () => {
                             type="checkbox"
                             id="noPersonalData"
                             checked={tempFilterPersonalData.includes(
-                              'No Personal Data'
+                              'no personal data'
                             )}
                             onChange={() =>
-                              handlePersonalDataChange('No Personal Data')
+                              handlePersonalDataChange('no personal data')
                             }
                           />
                           <label
                             className="form-check-label"
-                            htmlFor="noPersonalData"
+                            htmlFor="no personal data"
                           >
                             No Personal Data
                           </label>
@@ -332,10 +342,10 @@ const Catalog = () => {
                             type="checkbox"
                             id="anonymized"
                             checked={tempFilterPersonalData.includes(
-                              'Anonymized'
+                              'anonymized'
                             )}
                             onChange={() =>
-                              handlePersonalDataChange('Anonymized')
+                              handlePersonalDataChange('anonymized')
                             }
                           />
                           <label
@@ -351,11 +361,11 @@ const Catalog = () => {
                             type="checkbox"
                             id="pii"
                             checked={tempFilterPersonalData.includes(
-                              'Personally identifiable'
+                              'personally identifiable information'
                             )}
                             onChange={() =>
                               handlePersonalDataChange(
-                                'Personally identifiable'
+                                'personally identifiable information'
                               )
                             }
                           />
