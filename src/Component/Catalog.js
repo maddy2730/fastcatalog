@@ -5,6 +5,8 @@ import { images } from './images/Imagesholder';
 import { catelogListingApi } from './dataSources/Api/catelogApi';
 import { pageCounter } from './helpers';
 import Loader from './shared/loader';
+import axios from 'axios';
+import {BASE_URL} from '../Component/dataSources/Api/catelogApi'
 import { ToastContainer, toast } from 'react-toastify';
 
 const Catalog = () => {
@@ -176,31 +178,55 @@ const handleDataAvailabilityChange = (value) => {
 //     setTempFilterDataProvider([]);
 //     setTempFilterPersonalData([]);
 //   };
-  const handleSave = () => {
-    let newErrors = {};
+const handleSave = async () => {
+  let newErrors = {};
 
-    if (!projectName) {
-        newErrors.projectName = 'This field is required';
-    }
-    if (!projectDescription) {
-        newErrors.projectDescription = 'This field is required';
-    }
+  if (!projectName) {
+    newErrors.projectName = 'This field is required';
+  }
+  if (!projectDescription) {
+    newErrors.projectDescription = 'This field is required';
+  }
 
-    setErrors(newErrors);
+  setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
+  if (Object.keys(newErrors).length === 0) {
+    try {
+      const response = await axios.post(`${BASE_URL}/create_ai_project`, {
+        project_name: projectName,
+        description: projectDescription,
+        owner: 'John Doe',
+        user_custom_id: 'proj_1234',
+        project_details: {
+          pipeline: 'standard',
+          status: 'active'
+        },
+        members: [
+          { email: 'nick@example.com', name: 'Nick' },
+          { email: 'nick2@example.com' }
+        ]
+      });
+
+      if (response.status === 200) {
         toast.success('Project saved successfully!', {
-            position: 'top-right',
-            autoClose: 3000, 
+          position: 'top-right',
+          autoClose: 3000
         });
-        console.log('Project saved:', projectName, projectDescription);
         handleCloseModal();
         setProjectName('');
         setProjectDescription('');
-
-        navigate('/');
+        navigate('/Myproject');
+      }
+    } catch (error) {
+      toast.error('Failed to save project. Please try again.', {
+        position: 'top-right',
+        autoClose: 3000
+      });
+      console.error('API error:', error);
     }
+  }
 };
+
   return (
     <>
       {loading && <Loader />}
@@ -615,6 +641,7 @@ const handleDataAvailabilityChange = (value) => {
                                   </div>
                                 </div>
                                 <div className="input_text_container">
+                              
                                  <div className="input-wrapper">
                                 <label htmlFor="projectName" className="label-inputtext">Project Name</label>
                                 <input

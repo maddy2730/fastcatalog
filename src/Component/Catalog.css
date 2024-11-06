@@ -261,6 +261,7 @@
         .delete{
 height: 40px;
 width: 40px;
+cursor: pointer;
         }
         .home_page{
             color: #141263;
@@ -601,10 +602,7 @@ padding: 0px;
     .Filters {
     width: 142px;
     }
-    .Save_aProject{
-        width: 100px;
-        font-size: 12px;
-    }
+ 
     .Source label,
     .Source_check_box label {
         font-size: 12px;
@@ -628,6 +626,12 @@ padding: 0px;
     }
     .page{
         padding: 0px 10px;
+    }
+}
+@media (max-width: 768px) {
+    .Save_aProject{
+        width: 100px;
+        font-size: 12px;
     }
 }
 
