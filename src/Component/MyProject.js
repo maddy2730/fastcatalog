@@ -12,7 +12,7 @@ export default function MyProject() {
       try {
         const response = await axios.get(`${BASE_URL}/list_projects_details`, {
           params: {
-            user_email: 'nick@example.com',
+            user_email: 'nick@example.com',  
             limit: 10,
             offset: 0,
           },
