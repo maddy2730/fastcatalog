@@ -226,6 +226,35 @@ const handleSave = async () => {
     }
   }
 };
+const downloadCSV = async () => {
+  // Filter selected data based on `selectedItems`
+  const selectedData = filteredData.filter(data => selectedItems.includes(data.id));
+
+  // Format data for CSV
+  const csvRows = [
+    ["Full Name", "Modality", "Data Provider", "Terms"], // Header row
+    ...selectedData.map(data => [
+      data.full_name,
+      data.modality,
+      data.data_provider,
+      data.usage_terms_type
+    ])
+  ];
+
+  // Convert to CSV string
+  const csvContent = csvRows.map(row => row.join(",")).join("\n");
+
+  // Create a blob and download the CSV
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Selected_Data.csv"; // Set the file name
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
 
   return (
     <>
@@ -701,7 +730,9 @@ const handleSave = async () => {
                           </button>
                         </div>{' '}
                         <div>
-                          <button className=" filter_apply_btn Bill_Material">
+                          <button className=" filter_apply_btn Bill_Material"
+                          onClick={downloadCSV}
+                          >
                             Generate Data Bill of Material
                           </button>
                         </div>
