@@ -230,9 +230,8 @@ const downloadCSV = async () => {
   // Filter selected data based on `selectedItems`
   const selectedData = filteredData.filter(data => selectedItems.includes(data.id));
 
-  // Format data for CSV
   const csvRows = [
-    ["Full Name", "Modality", "Data Provider", "Terms"], // Header row
+    ["Full Name", "Modality", "Data Provider", "Terms"], 
     ...selectedData.map(data => [
       data.full_name,
       data.modality,
@@ -241,15 +240,13 @@ const downloadCSV = async () => {
     ])
   ];
 
-  // Convert to CSV string
   const csvContent = csvRows.map(row => row.join(",")).join("\n");
 
-  // Create a blob and download the CSV
   const blob = new Blob([csvContent], { type: "text/csv" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "Selected_Data.csv"; // Set the file name
+  a.download = "Selected_Data.csv"; 
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
