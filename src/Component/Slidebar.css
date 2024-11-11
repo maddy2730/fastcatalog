@@ -128,3 +128,20 @@ padding-left: 20px;
     color: #141263;
     font-weight: bold;
 }
+.sign_out-button img{
+height: 24px;
+width: 24px;
+}
+.sign_out-button{
+    gap:12px
+}
+
+.sign_out-button button{
+    border: none;
+    background: none;
+    padding: 0px;
+    font-size: 16px;
+    color: red;
+    cursor: pointer;
+
+}

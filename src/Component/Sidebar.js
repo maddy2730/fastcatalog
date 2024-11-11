@@ -45,7 +45,6 @@ const Sidebar = () => {
                             <div>{activeLink === '/Myproject' && <img className='dots' src={images.Elipsdot} alt="dot" />}</div>
                         </li>
                     </NavLink>
-
                     <NavLink to="/" className="nav-link" onClick={() => handleClick('/')}>
                         <li className={`nav-item ${activeLink === '/' ? 'active-links' : ''}`}>
                             <div className='nav-icon'>
@@ -96,6 +95,13 @@ const Sidebar = () => {
                     </li>
                 </NavLink>
                 </ul>
+                <div className='nav-icon'>
+                    <div className='d-flex sign_out-button'><img  src={images.iconsignout}/> <button>
+                        
+                        Sign Out
+                         </button></div>
+                    
+                </div>
             </div>
         </div>
     );
