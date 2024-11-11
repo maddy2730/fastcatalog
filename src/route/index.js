@@ -1,7 +1,6 @@
 // src/route.js
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Catalog from '../Component/Catalog';
 import MyProject from '../Component/MyProject';
 import Tools from '../Component/Tools';
 import Settings from '../Component/Settings';
@@ -10,7 +9,8 @@ import Help from '../Component/Help';
 import Login from '../Component/auth/Login';
 import ProtectedRoute from './protectedRoute';
 import Layout from './layout';
-import { useAuth } from '../SupabaseAuth/auth/authContext';
+import Catalog from '../Component/catalog/Catalog';
+import { useAuth } from '../Component/SupabaseAuth/auth/authContext';
 
 const RouteContext = () => {
   const { user } = useAuth();

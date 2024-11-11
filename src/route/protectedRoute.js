@@ -1,6 +1,6 @@
 // src/ProtectedRoute.js
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../SupabaseAuth/auth/authContext';
+import { useAuth } from '../Component/SupabaseAuth/auth/authContext';
 
 function ProtectedRoute({ children }) {
   const { user } = useAuth();
