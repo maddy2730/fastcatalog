@@ -213,13 +213,16 @@ const Sidebar = () => {
             <li
               className='nav-item'
             >
-              <div className="nav-icon">
-                <BiLogOut />
-              </div>
-              <div>Logout</div>
+
             </li>
           </NavLink>
         </ul>
+        <div className='d-flex Sign_out_btn'>
+        <div className="nav-icon">
+                <BiLogOut />
+              </div>
+              <div className='Sign_out'>Sign Out</div>
+        </div>
       </div>
     </div>
   );

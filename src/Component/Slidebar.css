@@ -145,3 +145,14 @@ width: 24px;
     cursor: pointer;
 
 }
+.Sign_out{
+    color: red;
+}
+.nav-icon svg {
+    color: red;
+}
+.Sign_out_btn{
+    gap: 12px;
+    position: relative;
+    top:100px;
+}
