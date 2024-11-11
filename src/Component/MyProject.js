@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './MainContent.css';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { BASE_URL } from '../Component/dataSources/Api/catelogApi'
 import Loader from './shared/loader';
+import { BASE_URL } from '../dataSources/Api/catelogApi';
+
 export default function MyProject() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/list_projects_details`, {
           params: {
-            user_email: 'nick@example.com',  
+            user_email: 'nick@example.com',
             limit: 10,
             offset: 0,
           },
@@ -26,6 +28,7 @@ export default function MyProject() {
     };
     fetchProjects();
   }, []);
+
   return (
     <>
       {loading && <Loader />}
