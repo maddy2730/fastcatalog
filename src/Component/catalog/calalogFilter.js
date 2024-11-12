@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { images } from '../images/Imagesholder';
 import { FILTER_INITIAL_VALUE } from '../../constant/constant';
 
-const CatalogFilter = (props) => {
-  const { setCatlogFilterValue, isOpen, setIsOpen } = props;
+const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
 
   const [filterValue, setFilterValue] = useState(FILTER_INITIAL_VALUE);
@@ -38,7 +37,6 @@ const CatalogFilter = (props) => {
     }));
   };
 
-  // Function for handling checkboxes with array values
   const toggleArrayValue = (filterType, value) => {
     setFilterValue((prevFilters) => {
       const currentArray = prevFilters[filterType];
@@ -87,8 +85,8 @@ const CatalogFilter = (props) => {
                     type="text"
                     className="form-control"
                     placeholder="Enter data source name"
-                    value={filterValue.name}
-                    onChange={(e) => updateFilter('name', e.target.value)}
+                    value={filterValue.full_name}
+                    onChange={(e) => updateFilter('full_name', e.target.value)}
                   />
                 </div>
 
@@ -100,11 +98,11 @@ const CatalogFilter = (props) => {
                     onChange={(e) => updateFilter('modality', e.target.value)}
                   >
                     <option value="">Select Modality</option>
-                    <option value="Text">Text</option>
-                    <option value="Images">Images</option>
-                    <option value="Video">Video</option>
-                    <option value="Tabular">Tabular</option>
-                    <option value="Audio">Audio</option>
+                    <option value="text">Text</option>
+                    <option value="images">Images</option>
+                    <option value="video">Video</option>
+                    <option value="tabular">Tabular</option>
+                    <option value="audio">Audio</option>
                   </select>
                 </div>
 
@@ -263,3 +261,5 @@ const CatalogFilter = (props) => {
 };
 
 export default CatalogFilter;
+
+

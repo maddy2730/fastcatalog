@@ -254,10 +254,13 @@ select {
 }
 
 
-@media(max-width: 786px){
+@media(max-width: 991px){
   .main_container_box {
     display: flex;
     gap: 0px;
+}
+.toggle-icon{
+  padding-left: 8px;
 }
 }
 @media (max-width: 480px) {
@@ -291,4 +294,5 @@ select {
   .col-lg-3 {
       flex: 0 0 auto;
       width: 293px !important;  }
+
 }

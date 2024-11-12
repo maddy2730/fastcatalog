@@ -28,7 +28,15 @@ const Catalog = () => {
   const [errors, setErrors] = useState({});
   const [filterValue, setFilterValue] = useState(FILTER_INITIAL_VALUE);
 
-  const filteredData = response;
+  const filteredData = response.filter((data) => {
+    return (
+      (!filterValue.full_name || data.full_name.toLowerCase().includes(filterValue.full_name.toLowerCase())) &&
+      (!filterValue.modality || data.modality === filterValue.modality) &&
+      (!filterValue.spdx_id || data.spdx_id === filterValue.spdx_id) &&
+      (!filterValue.data_availability || data.data_availability === filterValue.data_availability) &&
+      (!filterValue.personal_data_type.length || filterValue.personal_data_type.some(type => data.personal_data_type.includes(type)))
+    );
+  });
 
   const navigate = useNavigate();
   const handleButtonClick = () => {
@@ -99,7 +107,6 @@ const Catalog = () => {
       return newSelectedItems;
     });
   };
-
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSave = async () => {
@@ -132,7 +139,7 @@ const Catalog = () => {
         });
 
         if (response.status === 200) {
-          toast.success('Project saved successfully!', {
+          toast.success('', {
             position: 'top-right',
             autoClose: 3000,
           });
@@ -142,7 +149,7 @@ const Catalog = () => {
           navigate('/Myproject');
         }
       } catch (error) {
-        toast.error('Failed to save project. Please try again.', {
+        toast.error('', {
           position: 'top-right',
           autoClose: 3000,
         });

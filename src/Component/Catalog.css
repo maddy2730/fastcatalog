@@ -101,6 +101,9 @@
   .pagination-page {
     font-size: x-small;
     white-space: nowrap;
+    margin-left: 7px;
+    margin-right: 7px;
+
   }
 }
 @media (min-width: 768px) and (max-width: 990px) {
@@ -381,10 +384,13 @@ tbody .table_data_row:nth-child(odd) {
   .body_color_right {
     padding: 0px 5px 0px 5px !important;
   }
+<<<<<<< Updated upstream
   .toggle-icon {
     padding: 16px 0px;
     left: 16px;
   }
+=======
+>>>>>>> Stashed changes
   .Save_aProject {
     width: 131px;
     height: 43px;
@@ -682,7 +688,7 @@ table {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 991px) {
   .table-container,
   .tabs-catalog {
     flex-grow: 1;

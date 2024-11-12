@@ -37,7 +37,7 @@ export default function MyProject() {
           <div className='my-project-main-container'>
             <div className='myproject-content d-flex justify-content-between'>
               <div className='myproject-heading'>
-                <h2>My Project</h2>
+                <h2>My Projects</h2>
               </div>
               <div>
                 <NavLink to='/'>

@@ -35,10 +35,7 @@
 text-decoration: none;}
 
 @media(max-width: 786px){
-    .my-project-main-container {
-        padding: 0px 5px 0px 5px;
-     
-    }
+
     .myproject-heading h2{
      
         padding-left: 0px;
@@ -55,3 +52,15 @@ text-decoration: none;}
 /* .Selected_tables{
     height: 100vh;
 } */
+ 
+ @media (min-width:991px){
+    .Selected_tables{
+        width: calc(100% - 310px) !important;
+        margin-left: 310px !important;
+     }
+ }
+ @media (max-width:991px){
+    .Selected_tables{
+    padding: 8px !important;
+    }
+ }
