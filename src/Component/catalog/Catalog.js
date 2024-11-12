@@ -111,16 +111,13 @@ const Catalog = () => {
 
   const handleSave = async () => {
     let newErrors = {};
-
     if (!projectName) {
       newErrors.projectName = 'This field is required';
     }
     if (!projectDescription) {
       newErrors.projectDescription = 'This field is required';
     }
-
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length === 0) {
       try {
         const response = await axios.post(`${BASE_URL}/create_ai_project`, {
@@ -137,7 +134,6 @@ const Catalog = () => {
             { email: 'nick2@example.com' },
           ],
         });
-
         if (response.status === 200) {
           toast.success('', {
             position: 'top-right',
@@ -148,24 +144,14 @@ const Catalog = () => {
           setProjectDescription('');
           navigate('/Myproject');
         }
-      } 
-  catch (error) {
-    toast.error('', {
-      position: 'top-right',
-      autoClose: 3000,
-    });
-    console.error('API error:', error);
-  }}
-    const csvContent = csvRows.map((row) => row.join(',')).join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Selected_Data.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+      } catch (error) {
+        toast.error('', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+        console.error('API error:', error);
+      }
+    }
   };
   const downloadCSV = () => {
     const csvRows = filteredData.map((item) => [
@@ -174,11 +160,9 @@ const Catalog = () => {
       item.spdx_id,
       item.data_availability,
       // Check if personal_data_type is an array before calling .join()
-      Array.isArray(item.personal_data_type) ? item.personal_data_type.join(', ') : item.personal_data_type || '', 
+      Array.isArray(item.personal_data_type) ? item.personal_data_type.join(', ') : item.personal_data_type || '',
     ]);
-  
     const csvContent = csvRows.map((row) => row.join(',')).join('\n');
-  
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
