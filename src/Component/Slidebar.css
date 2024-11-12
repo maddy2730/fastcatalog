@@ -154,4 +154,5 @@ width: 24px;
     gap: 12px;
     position: relative;
     top:100px;
+    cursor: pointer;
 }
