@@ -148,31 +148,14 @@ const Catalog = () => {
           setProjectDescription('');
           navigate('/Myproject');
         }
-      } catch (error) {
-        toast.error('', {
-          position: 'top-right',
-          autoClose: 3000,
-        });
-        console.error('API error:', error);
-      }
-    }
-  };
-  const downloadCSV = async () => {
-    // Filter selected data based on `selectedItems`
-    const selectedData = filteredData.filter((data) =>
-      selectedItems.includes(data.id)
-    );
-
-    const csvRows = [
-      ['Full Name', 'Modality', 'Data Provider', 'Terms'],
-      ...selectedData.map((data) => [
-        data.full_name,
-        data.modality,
-        data.data_provider,
-        data.usage_terms_type,
-      ]),
-    ];
-
+      } 
+  catch (error) {
+    toast.error('', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
+    console.error('API error:', error);
+  }}
     const csvContent = csvRows.map((row) => row.join(',')).join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -184,6 +167,28 @@ const Catalog = () => {
     a.click();
     document.body.removeChild(a);
   };
+  const downloadCSV = () => {
+    const csvRows = filteredData.map((item) => [
+      item.full_name,
+      item.modality,
+      item.spdx_id,
+      item.data_availability,
+      // Check if personal_data_type is an array before calling .join()
+      Array.isArray(item.personal_data_type) ? item.personal_data_type.join(', ') : item.personal_data_type || '', 
+    ]);
+  
+    const csvContent = csvRows.map((row) => row.join(',')).join('\n');
+  
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Selected_Data.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+  
 
   return (
     <>
@@ -313,7 +318,7 @@ const Catalog = () => {
                             </span>
                           )}
 
-                          <span className="mx-3 pagination-page">
+                          <span className=" pagination-page">
                             Page {currentPage} of{' '}
                             {Math.ceil(totalCount / rowsPerPage)}
                           </span>

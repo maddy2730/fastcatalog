@@ -206,7 +206,7 @@ const Sidebar = () => {
             </li>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             className="nav-link"
             onClick={() => onSignOut()}
           >
@@ -215,13 +215,15 @@ const Sidebar = () => {
             >
 
             </li>
-          </NavLink>
+          </NavLink> */}
         </ul>
         <div className='d-flex Sign_out_btn'>
         <div className="nav-icon">
                 <BiLogOut />
               </div>
-              <div className='Sign_out'>Sign Out</div>
+              <div className='Sign_out'  onClick={() => onSignOut()}>
+                Sign Out
+                </div>
         </div>
       </div>
     </div>
