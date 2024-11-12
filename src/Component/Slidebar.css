@@ -106,10 +106,6 @@ padding-left: 20px;
 @media (max-width: 991px) {
     .toggle-icon {
         display: block; 
-<<<<<<< Updated upstream
-        margin-left: 10px;
-=======
->>>>>>> Stashed changes
     }
 }
 
