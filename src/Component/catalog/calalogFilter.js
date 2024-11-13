@@ -99,7 +99,7 @@ const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
                   >
                     <option value="">Select Modality</option>
                     <option value="text">Text</option>
-                    <option value="images">Images</option>
+                    <option value="image">Images</option>
                     <option value="video">Video</option>
                     <option value="tabular">Tabular</option>
                     <option value="audio">Audio</option>
