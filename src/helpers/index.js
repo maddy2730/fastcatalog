@@ -1,10 +1,16 @@
-export const pageCounter = (limit = 0) => {
-  // If limit is 0 or a falsy value, return an empty array
-  if (!limit || limit < 10) return [];
+export const pageCounter = (totalCount = 0, rowsPerPage = 10) => {
+  // If totalCount or rowsPerPage is 0 or falsy, return an empty array
+  if (!totalCount || !rowsPerPage || rowsPerPage <= 0) return [];
 
+  // Calculate the number of pages
+  const pageCount = Math.ceil(totalCount / rowsPerPage);
+
+  // Generate the result array based on page count
   const result = Array.from(
-    { length: Math.floor(50 / 10) },
-    (_, i) => (i + 1) * 10
+    { length: pageCount },
+    (_, i) => Math.min((i + 1) * rowsPerPage, totalCount)
   );
+
   return result;
 };
+

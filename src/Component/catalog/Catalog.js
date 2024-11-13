@@ -28,22 +28,14 @@ const Catalog = () => {
   const [errors, setErrors] = useState({});
   const [filterValue, setFilterValue] = useState(FILTER_INITIAL_VALUE);
 
-  const filteredData = response.filter((data) => {
-    return (
-      (!filterValue.full_name || data.full_name.toLowerCase().includes(filterValue.full_name.toLowerCase())) &&
-      (!filterValue.modality || data.modality === filterValue.modality) &&
-      (!filterValue.spdx_id || data.spdx_id === filterValue.spdx_id) &&
-      (!filterValue.data_availability || data.data_availability === filterValue.data_availability) &&
-      (!filterValue.personal_data_type.length || filterValue.personal_data_type.some(type => data.personal_data_type.includes(type)))
-    );
-  });
+  const filteredData = response;
 
   const navigate = useNavigate();
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
 
-  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const totalPages = Math.ceil(totalCount / rowsPerPage);
 
   const nextPage = () => {
     setLoading(true);
@@ -60,11 +52,11 @@ const Catalog = () => {
   };
 
   const offset = (currentPage - 1) * rowsPerPage;
-  const paginatedData = filteredData.slice(offset, offset + rowsPerPage);
+
   const fetchData = async () => {
     setLoading(true);
     await catelogListingApi({
-      limit: totalCount,
+      limit: rowsPerPage,
       offset,
       filterData: filterValue,
     })
@@ -82,14 +74,10 @@ const Catalog = () => {
   }, [rowsPerPage, currentPage, filterValue]);
 
   const handleRowsPerPageChange = (e) => {
-    const newRowsPerPage = parseInt(e.target.value, 10);
-    setRowsPerPage(newRowsPerPage);
-    setCurrentPage(1); // Reset to page 1 when rows per page changes
+    setRowsPerPage(parseInt(e.target.value, 10));
+    setCurrentPage(1);
   };
-  useEffect(() => {
-    setCurrentPage(1); // Reset to the first page when filters are applied
-    fetchData();
-  }, [rowsPerPage, filterValue]);
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -164,7 +152,9 @@ const Catalog = () => {
       item.spdx_id,
       item.data_availability,
       // Check if personal_data_type is an array before calling .join()
-      Array.isArray(item.personal_data_type) ? item.personal_data_type.join(', ') : item.personal_data_type || '',
+      Array.isArray(item.personal_data_type)
+        ? item.personal_data_type.join(', ')
+        : item.personal_data_type || '',
     ]);
     const csvContent = csvRows.map((row) => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -176,7 +166,6 @@ const Catalog = () => {
     a.click();
     document.body.removeChild(a);
   };
-  
 
   return (
     <>
@@ -244,7 +233,7 @@ const Catalog = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            {paginatedData.map((data) => (
+                            {filteredData.map((data) => (
                               <tr key={data.id} className={`table_data_row`}>
                                 <td className="head_check_box">
                                   <input
@@ -273,7 +262,7 @@ const Catalog = () => {
                         </table>
                       </div>
 
-                      {!loading && <div className="d-flex justify-content-between page page">
+                      <div className="d-flex justify-content-between page page">
                         <div className="d-flex align-items-center pages">
                           <label htmlFor="rowsPerPage" className="rowsPerPage">
                             Results per page
@@ -283,9 +272,7 @@ const Catalog = () => {
                             value={rowsPerPage}
                             onChange={handleRowsPerPageChange}
                           >
-                            {pageCounter(
-                              Math.ceil(totalCount / rowsPerPage)
-                            )?.map((val) => (
+                            {pageCounter(totalCount, rowsPerPage)?.map((val) => (
                               <option value={val} key={`${val + 1}`}>
                                 {val}
                               </option>
@@ -325,7 +312,7 @@ const Catalog = () => {
                             </span>
                           )}
                         </div>
-                      </div>}
+                      </div>
                     </>
                   ) : (
                     <>
