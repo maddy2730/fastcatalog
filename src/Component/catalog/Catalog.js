@@ -43,7 +43,7 @@ const Catalog = () => {
     setIsModalOpen(true);
   };
 
-  const totalPages = Math.ceil(totalCount / rowsPerPage);
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
   const nextPage = () => {
     setLoading(true);
@@ -60,11 +60,11 @@ const Catalog = () => {
   };
 
   const offset = (currentPage - 1) * rowsPerPage;
-
+  const paginatedData = filteredData.slice(offset, offset + rowsPerPage);
   const fetchData = async () => {
     setLoading(true);
     await catelogListingApi({
-      limit: rowsPerPage,
+      limit: totalCount,
       offset,
       filterData: filterValue,
     })
@@ -82,10 +82,14 @@ const Catalog = () => {
   }, [rowsPerPage, currentPage, filterValue]);
 
   const handleRowsPerPageChange = (e) => {
-    setRowsPerPage(parseInt(e.target.value, 10));
-    setCurrentPage(1);
+    const newRowsPerPage = parseInt(e.target.value, 10);
+    setRowsPerPage(newRowsPerPage);
+    setCurrentPage(1); // Reset to page 1 when rows per page changes
   };
-
+  useEffect(() => {
+    setCurrentPage(1); // Reset to the first page when filters are applied
+    fetchData();
+  }, [rowsPerPage, filterValue]);
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -240,7 +244,7 @@ const Catalog = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            {filteredData.map((data) => (
+                            {paginatedData.map((data) => (
                               <tr key={data.id} className={`table_data_row`}>
                                 <td className="head_check_box">
                                   <input

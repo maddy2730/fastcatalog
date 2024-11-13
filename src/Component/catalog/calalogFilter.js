@@ -39,7 +39,7 @@ const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
 
   const toggleArrayValue = (filterType, value) => {
     setFilterValue((prevFilters) => {
-      const currentArray = prevFilters[filterType];
+      const currentArray = prevFilters[filterType] || [];
       return {
         ...prevFilters,
         [filterType]: currentArray.includes(value)
@@ -57,8 +57,14 @@ const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
 
   const onApplyFilter = () => {
     setIsOpen(false);
-    setCatlogFilterValue(filterValue);
+    
+    // Apply all filters together
+    const combinedFilters = { ...filterValue };
+    
+    // Call the parent component's callback to set the combined filter value
+    setCatlogFilterValue(combinedFilters);
   };
+  
 
   return (
     <div className="sidebar-container">
