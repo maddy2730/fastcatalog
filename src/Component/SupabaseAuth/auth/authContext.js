@@ -52,9 +52,10 @@ export function AuthProvider({ children }) {
     } else {
       console.log('Sign-in successful:', data.user);
       setUser(data.user);
+      // localStorage.setItem('userEmail', data.user.email);
     }
   };
-
+ 
   // Sign-Out function
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();

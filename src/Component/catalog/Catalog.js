@@ -27,7 +27,7 @@ const Catalog = () => {
   const [projectDescription, setProjectDescription] = useState('');
   const [errors, setErrors] = useState({});
   const [filterValue, setFilterValue] = useState(FILTER_INITIAL_VALUE);
-
+  const [userEmail, setUserEmail] = useState(null); // Store user email in state
   const filteredData = response;
 
   const navigate = useNavigate();
@@ -101,6 +101,19 @@ const Catalog = () => {
   };
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const storedData1 = localStorage.getItem('sb-kybenuowpsbpozixatsc-auth-token');
+    console.log("asdfghjkl", storedData1);
+
+    if (storedData1) {
+      const parsedData = JSON.parse(storedData1);
+      const email = parsedData ? parsedData.user.email : null;
+      setUserEmail(email);
+    } else {
+      console.log('No data found in localStorage.');
+    }
+  }, []);
+
   const handleSave = async () => {
     let newErrors = {};
     if (!projectName) {
@@ -110,22 +123,23 @@ const Catalog = () => {
       newErrors.projectDescription = 'This field is required';
     }
     setErrors(newErrors);
+
     if (Object.keys(newErrors).length === 0) {
       try {
         const response = await axios.post(`${BASE_URL}/create_ai_project`, {
           project_name: projectName,
           description: projectDescription,
-          owner: 'John Doe',
+          owner: userEmail, 
           user_custom_id: 'proj_1234',
           project_details: {
             pipeline: 'standard',
             status: 'active',
           },
           members: [
-            { email: 'nick@example.com', name: 'Nick' },
-            { email: 'nick2@example.com' },
+            { email: userEmail },
           ],
         });
+
         if (response.status === 200) {
           toast.success('', {
             position: 'top-right',
@@ -135,6 +149,8 @@ const Catalog = () => {
           setProjectName('');
           setProjectDescription('');
           navigate('/Myproject');
+          localStorage.removeItem('selectedItems');
+
         }
       } catch (error) {
         toast.error('', {

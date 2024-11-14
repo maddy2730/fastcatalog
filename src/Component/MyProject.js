@@ -8,26 +8,43 @@ import { BASE_URL } from '../dataSources/Api/catelogApi';
 export default function MyProject() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState(null); 
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/list_projects_details`, {
-          params: {
-            user_email: 'nick@example.com',
-            limit: 10,
-            offset: 0,
-          },
-        });
-        setProjects(response.data.entries);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProjects();
+    const storedData1 = localStorage.getItem('sb-kybenuowpsbpozixatsc-auth-token');
+    console.log("Stored token data:", storedData1);
+
+    if (storedData1) {
+      const parsedData = JSON.parse(storedData1);
+      const email = parsedData ? parsedData.user.email : null;
+      setUserEmail(email); 
+    } else {
+      console.log('No data found in localStorage.');
+    }
   }, []);
+
+  useEffect(() => {
+    if (userEmail) {
+      const fetchProjects = async () => {
+        try {
+          const response = await axios.get(`${BASE_URL}/list_projects_details`, {
+            params: {
+              user_email: userEmail,
+              limit: 10,
+              offset: 0,
+            },
+          });
+          setProjects(response.data.entries);
+        } catch (error) {
+          console.error('Error fetching projects:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProjects();
+    }
+  }, [userEmail]);
 
   return (
     <>
