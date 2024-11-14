@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { images } from '../images/Imagesholder';
 import { FILTER_INITIAL_VALUE } from '../../constant/constant';
 
-const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
+const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen,setCurrentPage }) => {
   const sidebarRef = useRef(null);
 
   const [filterValue, setFilterValue] = useState(FILTER_INITIAL_VALUE);
@@ -58,6 +58,7 @@ const CatalogFilter = ({ setCatlogFilterValue, isOpen, setIsOpen }) => {
   const onApplyFilter = () => {
     setIsOpen(false);
     setCatlogFilterValue(filterValue);
+    setCurrentPage(1)
   };
 
   return (
