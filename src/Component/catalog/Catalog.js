@@ -81,29 +81,35 @@ const Catalog = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   const handleDelete = (id) => {
     setSelectedItems((prevSelectedItems) => {
-      const updatedItems = prevSelectedItems.filter((itemId) => itemId !== id);
+      const updatedItems = prevSelectedItems.filter((item) => item.id !== id); // Use `item.id` to match
       localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
       return updatedItems;
     });
   };
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (data) => {
     setSelectedItems((prev) => {
-      const newSelectedItems = prev.includes(id)
-        ? prev.filter((itemId) => itemId !== id)
-        : [...prev, id];
+      const exists = prev.some((item) => item.id === data.id);
+
+      const newSelectedItems = exists
+        ? prev.filter((item) => item.id !== data.id)
+        : [...prev, data];
 
       localStorage.setItem('selectedItems', JSON.stringify(newSelectedItems));
       return newSelectedItems;
     });
   };
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const storedData1 = localStorage.getItem('sb-kybenuowpsbpozixatsc-auth-token');
-    console.log("asdfghjkl", storedData1);
+    const storedData1 = localStorage.getItem(
+      'sb-kybenuowpsbpozixatsc-auth-token'
+    );
+    console.log('asdfghjkl', storedData1);
 
     if (storedData1) {
       const parsedData = JSON.parse(storedData1);
@@ -129,15 +135,13 @@ const Catalog = () => {
         const response = await axios.post(`${BASE_URL}/create_ai_project`, {
           project_name: projectName,
           description: projectDescription,
-          owner: userEmail, 
+          owner: userEmail,
           user_custom_id: 'proj_1234',
           project_details: {
             pipeline: 'standard',
             status: 'active',
           },
-          members: [
-            { email: userEmail },
-          ],
+          members: [{ email: userEmail }],
         });
 
         if (response.status === 200) {
@@ -150,7 +154,6 @@ const Catalog = () => {
           setProjectDescription('');
           navigate('/Myproject');
           localStorage.removeItem('selectedItems');
-
         }
       } catch (error) {
         toast.error('', {
@@ -221,7 +224,7 @@ const Catalog = () => {
                                   type="checkbox"
                                   onChange={() => {
                                     const allIds = filteredData?.map(
-                                      (data) => data.id
+                                      (data) => data
                                     );
                                     if (
                                       selectedItems?.length ===
@@ -239,7 +242,8 @@ const Catalog = () => {
                                   }}
                                   checked={
                                     selectedItems?.length ===
-                                    filteredData?.length
+                                      filteredData?.length &&
+                                    filteredData?.length > 0
                                   }
                                 />
                               </th>
@@ -260,10 +264,10 @@ const Catalog = () => {
                                 <td className="head_check_box">
                                   <input
                                     type="checkbox"
-                                    checked={selectedItems?.includes(data.id)}
-                                    onChange={() =>
-                                      handleCheckboxChange(data.id)
-                                    }
+                                    checked={selectedItems?.some(
+                                      (item) => item.id === data.id
+                                    )}
+                                    onChange={() => handleCheckboxChange(data)}
                                   />
                                 </td>
                                 <td>{data.full_name}</td>
@@ -290,16 +294,16 @@ const Catalog = () => {
                             Results per page
                           </label>
                           <select
-  id="rowsPerPage"
-  value={rowsPerPage}
-  onChange={handleRowsPerPageChange}
->
-  {[10, 20, 30, 40, 50].map((val) => (
-    <option value={val} key={val}>
-      {val}
-    </option>
-  ))}
-</select>
+                            id="rowsPerPage"
+                            value={rowsPerPage}
+                            onChange={handleRowsPerPageChange}
+                          >
+                            {[10, 20, 30, 40, 50].map((val) => (
+                              <option value={val} key={val}>
+                                {val}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="d-flex align-items-center">
                           {currentPage > 1 && (
@@ -359,27 +363,25 @@ const Catalog = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            {filteredData
-                              .filter((data) => selectedItems.includes(data.id))
-                              .map((data) => (
-                                <tr
-                                  key={data.id}
-                                  className={`table_data_row table_data_row_selected `}
-                                >
-                                  <td>{data.full_name}</td>
-                                  <td>{data.modality}</td>
-                                  <td>{data.data_provider}</td>
-                                  <td>{data.usage_terms_type}</td>
-                                  <td>
-                                    <img
-                                      className="delete "
-                                      onClick={() => handleDelete(data.id)}
-                                      src={images.Delete}
-                                      alt="delete"
-                                    />
-                                  </td>
-                                </tr>
-                              ))}
+                            {selectedItems.map((data) => (
+                              <tr
+                                key={data.id}
+                                className={`table_data_row table_data_row_selected `}
+                              >
+                                <td>{data.full_name}</td>
+                                <td>{data.modality || '-'}</td>
+                                <td>{data.data_provider || '-'}</td>
+                                <td>{data.usage_terms_type || '-'}</td>
+                                <td>
+                                  <img
+                                    className="delete "
+                                    onClick={() => handleDelete(data.id)}
+                                    src={images.Delete}
+                                    alt="delete"
+                                  />
+                                </td>
+                              </tr>
+                            ))}
                           </tbody>
                         </table>
 
@@ -493,26 +495,31 @@ const Catalog = () => {
                           </div>
                         )}
                       </div>
-                      <div className="botton_comb d-flex justify-content-end">
-                        <div className="d-flex button_bar">
-                          <div>
-                            <button
-                              className=" Save_aProject"
-                              onClick={handleButtonClick}
-                            >
-                              Save as Project
-                            </button>
-                          </div>{' '}
-                          <div>
-                            <button
-                              className=" filter_apply_btn Bill_Material"
-                              onClick={downloadCSV}
-                            >
-                              Generate Data Bill of Material
-                            </button>
+
+                      {selectedItems?.length > 0 ? (
+                        <div className="botton_comb d-flex justify-content-end">
+                          <div className="d-flex button_bar">
+                            <div>
+                              <button
+                                className=" Save_aProject"
+                                onClick={handleButtonClick}
+                              >
+                                Save as Project
+                              </button>
+                            </div>{' '}
+                            <div>
+                              <button
+                                className=" filter_apply_btn Bill_Material"
+                                onClick={downloadCSV}
+                              >
+                                Generate Data Bill of Material
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div className="container">No Item Selected</div>
+                      )}
                     </>
                   )}
                 </main>
