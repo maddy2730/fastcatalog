@@ -50,17 +50,17 @@ const Sidebar = () => {
           <NavLink
             to="/Myprojects"
             className="nav-link"
-            onClick={() => handleClick('/Myproject')}
+            onClick={() => handleClick('/Myprojects')}
           >
             <li
               className={`nav-item ${
-                activeLink === '/Myproject' ? 'active-links' : ''
+                activeLink === '/Myprojects' ? 'active-links' : ''
               }`}
             >
               <div className="nav-icon">
                 <img
                   src={
-                    activeLink === '/Myproject'
+                    activeLink === '/Myprojects'
                       ? images.Dashboardb
                       : images.Dashboard
                   }
@@ -69,7 +69,7 @@ const Sidebar = () => {
               </div>
               <div>My Projects </div>
               <div>
-                {activeLink === '/Myproject' && (
+                {activeLink === '/Myprojects' && (
                   <img className="dots" src={images.Elipsdot} alt="dot" />
                 )}
               </div>
