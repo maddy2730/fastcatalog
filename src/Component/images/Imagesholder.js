@@ -18,7 +18,7 @@ import Cross1 from './Cross1.png';
 import Right from './Right_Arrow.png';
 import Right1 from './Right_Arrow1.png';
 import Right2 from './Right_Arrow2.png';
-import Search from './Search (1).png';
+import Search from './Search1.png';
 import Icon from './Icon.png';
 export const images = {
     Fastcatallogo,
