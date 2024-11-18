@@ -11,17 +11,19 @@ import ProtectedRoute from './protectedRoute';
 import Layout from './layout';
 import Catalog from '../Component/catalog/Catalog';
 import { useAuth } from '../Component/SupabaseAuth/auth/authContext';
+import ProjectDetails from '../Component/ProjectDetails';
 
 const RouteContext = () => {
   const { user } = useAuth();
 
   const routeComponents = [
     { element: <Catalog />, pathname: '/dashboard' },
-    { element: <MyProject />, pathname: '/myproject' },
+    { element: <MyProject />, pathname: '/myprojects' },
     { element: <Settings />, pathname: '/settings' },
     { element: <Tools />, pathname: '/tools' },
     { element: <Api />, pathname: '/api' },
     { element: <Help />, pathname: '/help' },
+    { element: <ProjectDetails />, pathname: '/project-details/:id' },
   ];
 
   return (

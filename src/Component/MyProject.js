@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MainContent.css';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Loader from './shared/loader';
 import { BASE_URL } from '../dataSources/Api/catelogApi';
@@ -9,7 +10,7 @@ export default function MyProject() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState(null); 
-
+  const navigate = useNavigate();
   useEffect(() => {
     const storedData1 = localStorage.getItem('sb-kybenuowpsbpozixatsc-auth-token');
     console.log("Stored token data:", storedData1);
@@ -45,7 +46,9 @@ export default function MyProject() {
       fetchProjects();
     }
   }, [userEmail]);
-
+  const handleEdit = (id) => {
+    navigate(`/project-details/${id}`);
+  };
   return (
     <>
       {loading && <Loader />}
@@ -81,7 +84,9 @@ export default function MyProject() {
                       <td>{new Date(project.created_at).toLocaleDateString()}</td>
                       <td>{new Date(project.updated_at).toLocaleDateString()}</td>
                       <td>
-                        <a href='#' className='edit_link'>Edit</a>
+                      <button onClick={() => handleEdit("1")} className="edit_link">
+                    Edit
+                  </button>
                       </td>
                     </tr>
                   ))}

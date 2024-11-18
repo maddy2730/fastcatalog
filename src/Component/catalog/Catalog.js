@@ -164,23 +164,18 @@ const Catalog = () => {
       }
     }
   };
-  const downloadCSV = async () => {
-    const selectedData = filteredData.filter((data) =>
-      selectedItems.includes(data.id)
-    );
-
-    const csvRows = [
-      ['Full Name', 'Modality', 'Data Provider', 'Terms'],
-      ...selectedData.map((data) => [
-        data.full_name,
-        data.modality,
-        data.data_provider,
-        data.usage_terms_type,
-      ]),
-    ];
-
+  const downloadCSV = () => {
+    const csvRows = selectedItems.map((item) => [
+      item.full_name,
+      item.modality,
+      item.spdx_id,
+      item.data_availability,
+      // Check if personal_data_type is an array before calling .join()
+      Array.isArray(item.personal_data_type) ? item.personal_data_type.join(', ') : item.personal_data_type || '',
+    ]);
+  
     const csvContent = csvRows.map((row) => row.join(',')).join('\n');
-
+  
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -190,6 +185,7 @@ const Catalog = () => {
     a.click();
     document.body.removeChild(a);
   };
+  
 
   return (
     <>

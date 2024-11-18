@@ -29,10 +29,12 @@
     gap: 36px;
 }
 .edit_link{
-    color: #141263;
-    font-size: 16px;
-    font-weight: bold;
-text-decoration: none;}
+color: #141263;
+border: none;
+font-size: 16px;
+font-weight: bold;
+text-decoration: none;
+background: none;}
 
 @media(max-width: 786px){
 

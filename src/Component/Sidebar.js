@@ -48,7 +48,7 @@ const Sidebar = () => {
         </div>
         <ul className="nav flex-column">
           <NavLink
-            to="/Myproject"
+            to="/Myprojects"
             className="nav-link"
             onClick={() => handleClick('/Myproject')}
           >
