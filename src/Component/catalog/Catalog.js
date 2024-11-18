@@ -11,6 +11,7 @@ import '../Catalog.css';
 import { BASE_URL, catelogListingApi } from '../../dataSources/Api/catelogApi';
 import CatalogFilter from './calalogFilter';
 
+
 const Catalog = () => {
   const [activeLink, setActiveLink] = useState('data-source');
   const [selectedItems, setSelectedItems] = useState(() => {
@@ -514,7 +515,9 @@ const Catalog = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="container">No Item Selected</div>
+                        <div className="container icon-arrow">
+                          <img src={images.Frame}></img>
+                        </div>
                       )}
                     </>
                   )}

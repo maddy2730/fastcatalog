@@ -706,4 +706,10 @@ table {
     margin-left: 310px;
   }
 }
-
+.icon-arrow{
+  display: flex;
+  justify-content: center;
+}
+.icon-arrow img{
+  width: 150px;
+}
