@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './MainContent.css';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { images } from '../Component/images/Imagesholder';
+
 import axios from 'axios';
 import Loader from './shared/loader';
 import { BASE_URL } from '../dataSources/Api/catelogApi';
@@ -77,20 +79,34 @@ export default function MyProject() {
                   </tr>
                 </thead>
                 <tbody>
-                  {projects.map((project) => (
-                    <tr key={project.uuid} className="table_data_row table_data_row_selected">
-                      <td>{project.name}</td>
-                      <td>{project.owner}</td>
-                      <td>{new Date(project.created_at).toLocaleDateString()}</td>
-                      <td>{new Date(project.updated_at).toLocaleDateString()}</td>
-                      <td>
-                      <button onClick={() => handleEdit("1")} className="edit_link">
-                    Edit
-                  </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+  {projects.length > 0 ? (
+    projects.map((project) => (
+      <tr
+        key={project.uuid}
+        className="table_data_row table_data_row_selected"
+      >
+        <td>{project.name}</td>
+        <td>{project.owner}</td>
+        <td>{new Date(project.created_at).toLocaleDateString()}</td>
+        <td>{new Date(project.updated_at).toLocaleDateString()}</td>
+        <td>
+          <button onClick={() => handleEdit(project.uuid)} className="edit_link">
+            Edit
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5" style={{ textAlign: "center" }}>
+      <div className="container icon-arrow">
+                          <img src={images.Frame}></img>
+                        </div>
+      </td>
+    </tr>
+  )}
+</tbody>
+
               </table>
             </div>
           </div>
