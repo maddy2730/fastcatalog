@@ -20,6 +20,7 @@ import Right1 from './Right_Arrow1.png';
 import Right2 from './Right_Arrow2.png';
 import Search from './Search1.png';
 import Icon from './Icon.png';
+import Frame from './Frame1000004500.png';
 export const images = {
     Fastcatallogo,
     Setting,
@@ -42,5 +43,6 @@ export const images = {
     Right2,
     Right1,
     Search,
-    Icon
+    Icon,
+    Frame
   };
