@@ -153,7 +153,7 @@ const Catalog = () => {
           handleCloseModal();
           setProjectName('');
           setProjectDescription('');
-          navigate('/Myproject');
+          navigate('/Myprojects');
           localStorage.removeItem('selectedItems');
         }
       } catch (error) {
@@ -515,8 +515,12 @@ const Catalog = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="container icon-arrow">
-                          <img src={images.Frame}></img>
+                        <div className="container icon-arrow">   
+                        <div className=''>
+                        <img src={images.Search}></img>
+                        <h1 className="no-result-text">No Items Selected..</h1>
+                          </div>             
+                        
                         </div>
                       )}
                     </>

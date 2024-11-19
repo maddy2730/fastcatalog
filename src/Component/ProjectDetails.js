@@ -42,9 +42,9 @@ export default function ProjectDetails() {
               <div className="details_dropdown_trigger" onClick={toggleDropdown}>
                 <h4>Actions</h4>
                 {isOpen ? (
-                  <img src={images.Icon} alt="action" width={24} />
+                  <img src={images.Rightarrow} alt="action" width={24} />
                 ) : (
-                  <img src={images.Icon} alt="action" width={24} className="rotate" />
+                  <img src={images.Right} alt="action" width={24} className="rotate" />
                 )}
               </div>
               {isOpen && (

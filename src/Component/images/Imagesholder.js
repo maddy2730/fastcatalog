@@ -16,6 +16,7 @@ import Graphb  from './Graph-2_b.png';
 import Delete from './state-layer.png';
 import Cross1 from './Cross1.png';
 import Right from './Right_Arrow.png';
+import Rightarrow from './Right_Arrowrotate.png';
 import Right1 from './Right_Arrow1.png';
 import Right2 from './Right_Arrow2.png';
 import Search from './Search1.png';
@@ -44,5 +45,6 @@ export const images = {
     Right1,
     Search,
     Icon,
-    Frame
+    Frame,
+    Rightarrow
   };
